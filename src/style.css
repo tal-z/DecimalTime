@@ -1,0 +1,95 @@
+:root {
+  --second: 864ms;
+  --minute: calc(var(--second) * 100);
+  --hour: calc(var(--minute) * 100);
+}
+
+body {
+  width: 100%;
+  text-align: center;
+  font-family: arial;
+  //color: white;
+  background-color: pink;
+}
+.container {
+
+}
+.clockFace {
+  margin: auto;
+  width: 500px;
+  height: 500px;
+  border-radius: 45%;
+  border-style: solid;
+  border-color: black;
+  background-image: url("https://cdn.glitch.global/2df3a3cd-6d00-4541-a80c-bd2f5e1f035a/cf_ticks_upsidedown.png?v=1645658202885");
+  background-position: 45%;
+  background-size: 600px;
+  transform: rotate(180deg);
+
+  --timeShiftHour: calc(var(--setTimeHour) * var(--hour));
+  --timeShiftMinute: calc(var(--setTimeMinute) * var(--minute));
+  --timeShiftSecond: calc(var(--setTimeSecond) * var(--second));
+
+}
+
+
+@keyframes rotate {
+  from { transform: rotate(0); }
+  to { transform: rotate(1turn); }
+}
+
+.second.hand {
+  animation: rotate steps(100) var(--minute) infinite;
+  animation-delay: calc(var(--timeShiftSecond) * -1);
+}
+
+.minute.hand {
+  animation: rotate linear var(--hour) infinite;
+  animation-delay: calc(var(--timeShiftMinute) * -1);
+}
+
+.hour.hand {
+  animation: rotate linear calc(var(--hour) * 12) infinite;
+  animation-delay: calc(
+    (var(--timeShiftHour) + var(--timeShiftMinute)) * -1
+  );
+}
+
+.hand {
+  position: absolute;
+  top: 50%;
+  left: calc(50% - var(--width) / 2);
+  width: var(--width);
+  height: var(--height);
+  background-color: var(--color);
+  transform-origin: center 0;
+  border-radius: calc(var(--width) / 4);
+}
+
+.second {
+  --width: 5px;
+  --height: 140px;
+  --color: gray;
+}
+.minute {
+  --width: 10px;
+  --height: 90px;
+  --color: darkgray;
+}
+.hour {
+  --width: 10px;
+  --height: 50px;
+  --color: lightgray;
+}
+
+.digitalClock {
+  margin: auto;
+  margin-top: 2vh;
+  padding-top: 4vh;
+  padding-bottom: 4vh;
+  border-style: solid;
+  border-radius: 15%;
+  width: 250px;
+  color: black;
+  background-color: white;
+}
